@@ -27,3 +27,8 @@ Bir kimse, düşman eline veya hapse düşse, bir şey taleb etse, rızkında da
 > **— Ya Vehhab..**
 
 Diye, bundan sonra, ihtiyaçları yerine getiren Yüce Hakka ihtiyacı neyse onu arz ede.. Bunun üzerine, Yüce Hak, onun dileklerini yerine getirir.
+
+---
+
+**Kaynak:** *Miftâh'ül Kulûb — Kalplerin Anahtarı*
+**Yazar:** Muhammed Nuri Şemseddin Nakşibendî
