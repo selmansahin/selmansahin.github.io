@@ -1,8 +1,7 @@
 ---
-title: 'Kitap Özeti: Hızlı ve Yavaş Düşünme'
+title: 'Hızlı ve Yavaş Düşünme'
 description: "Daniel Kahneman'ın Nobel ödüllü çalışmasından ilham alan Hızlı ve Yavaş Düşünme kitabının özeti"
 pubDate: 2026-04-12
-heroImage: '../../assets/kitaplar/hizli-yavas-dusunme-tablo2.webp'
 ---
 
 Nobel Ekonomi Ödüllü tek Psikolog Daniel Kahneman, ekonomi biliminin dayanağı olan "İnsan, rasyonel bir karar alıcıdır" algısını yerle bir eden ve aslında ne kadar irrasyonel ve duygularıyla karar alan canlılar olduğumuzu ortaya koyan bir bilim insanı.
