@@ -7,15 +7,17 @@ import HeaderLink from './HeaderLink.astro';
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
+			<HeaderLink href="/">Ana Sayfa</HeaderLink>
 			<div class="dropdown">
 				<HeaderLink href="/manevi">Manevi ▾</HeaderLink>
 				<div class="dropdown-content">
 					<a href="/manevi/allahin-isimleri">📿 Allah'ımızın İsimleri</a>
 				</div>
 			</div>
-			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href="/yapay-zeka">Yapay Zeka</HeaderLink>
+			<HeaderLink href="/yazilim">Yazılım</HeaderLink>
+			<HeaderLink href="/kitaplar">Kitaplar</HeaderLink>
+			<HeaderLink href="/hakkimda">Hakkımda</HeaderLink>
 		</div>
 		<div class="social-links">
 			<a href="https://github.com/selmansahin" target="_blank">
@@ -134,6 +136,9 @@ import HeaderLink from './HeaderLink.astro';
 		.social-links {
 			display: none;
 		}
+		.internal-links {
+			flex-wrap: wrap;
+			justify-content: center;
+		}
 	}
 </style>
-

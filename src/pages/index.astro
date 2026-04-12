@@ -6,9 +6,45 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 
-const posts = (await getCollection('blog'))
+// Gather posts from all categories
+const maneviPosts = (await getCollection('manevi')).map((p) => ({
+	...p,
+	_category: 'manevi',
+	_categoryLabel: 'Manevi',
+	_href: `/manevi/allahin-isimleri/${p.id}/`,
+}));
+
+const yapayZekaPosts = (await getCollection('yapay-zeka')).map((p) => ({
+	...p,
+	_category: 'yapay-zeka',
+	_categoryLabel: 'Yapay Zeka',
+	_href: `/yapay-zeka/${p.id}/`,
+}));
+
+const yazilimPosts = (await getCollection('yazilim')).map((p) => ({
+	...p,
+	_category: 'yazilim',
+	_categoryLabel: 'Yazılım',
+	_href: `/yazilim/${p.id}/`,
+}));
+
+const kitaplarPosts = (await getCollection('kitaplar')).map((p) => ({
+	...p,
+	_category: 'kitaplar',
+	_categoryLabel: 'Kitaplar',
+	_href: `/kitaplar/${p.id}/`,
+}));
+
+const allPosts = [...maneviPosts, ...yapayZekaPosts, ...yazilimPosts, ...kitaplarPosts]
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-	.slice(0, 3);
+	.slice(0, 6);
+
+const categories = [
+	{ name: 'Manevi', href: '/manevi', icon: '🕌', desc: 'Dualar, zikirler ve Allah\'ın güzel isimleri', color: '#1a5c2e' },
+	{ name: 'Yapay Zeka', href: '/yapay-zeka', icon: '🤖', desc: 'Yapay zeka dünyasından paylaşımlar', color: '#6366f1' },
+	{ name: 'Yazılım', href: '/yazilim', icon: '💻', desc: 'Yazılım geliştirme deneyimleri', color: '#0891b2' },
+	{ name: 'Kitaplar', href: '/kitaplar', icon: '📚', desc: 'Okuduğum kitaplar ve yorumlarım', color: '#b45309' },
+];
 ---
 
 <!doctype html>
@@ -23,8 +59,57 @@ const posts = (await getCollection('blog'))
 				font-size: 2.4em;
 				margin-bottom: 0.5em;
 			}
+			.categories-section {
+				margin-top: 2.5em;
+			}
+			.categories-section h2 {
+				font-size: 1.6em;
+				margin-bottom: 1em;
+			}
+			.categories-grid {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1.2em;
+				margin-bottom: 2em;
+			}
+			.category-card {
+				display: flex;
+				align-items: center;
+				gap: 1em;
+				padding: 1.4em;
+				border-radius: 14px;
+				text-decoration: none;
+				color: inherit;
+				border: 1px solid rgb(var(--gray-light));
+				transition: all 0.3s ease;
+				background: white;
+			}
+			.category-card:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+			}
+			.category-card .cat-icon {
+				font-size: 2em;
+				width: 56px;
+				height: 56px;
+				border-radius: 14px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-shrink: 0;
+			}
+			.category-card .cat-info h3 {
+				font-size: 1.1em;
+				margin: 0 0 0.2em 0;
+			}
+			.category-card .cat-info p {
+				font-size: 0.82em;
+				color: rgb(var(--gray));
+				margin: 0;
+				line-height: 1.4;
+			}
 			.recent-posts {
-				margin-top: 2em;
+				margin-top: 2.5em;
 			}
 			.recent-posts h2 {
 				font-size: 1.6em;
@@ -57,25 +142,32 @@ const posts = (await getCollection('blog'))
 				color: rgb(var(--black));
 				transition: color 0.2s ease;
 			}
+			.post-meta {
+				display: flex;
+				align-items: center;
+				gap: 0.8em;
+				margin-bottom: 0.3em;
+			}
 			.post-date {
 				font-size: 0.85em;
 				color: rgb(var(--gray));
-				margin-bottom: 0.3em;
+			}
+			.post-category-badge {
+				font-size: 0.72em;
+				padding: 0.15em 0.6em;
+				border-radius: 20px;
+				font-weight: 600;
+				color: white;
 			}
 			.post-description {
 				color: rgb(var(--gray-dark));
 				margin: 0;
 				font-size: 0.95em;
 			}
-			.all-posts-link {
-				display: inline-block;
-				margin-top: 1.5em;
-				font-weight: 700;
-				color: var(--accent);
-				text-decoration: none;
-			}
-			.all-posts-link:hover {
-				text-decoration: underline;
+			@media (max-width: 720px) {
+				.categories-grid {
+					grid-template-columns: 1fr;
+				}
 			}
 		</style>
 	</head>
@@ -86,37 +178,63 @@ const posts = (await getCollection('blog'))
 				<h1>Merhaba, ben Selman 👋</h1>
 				<p>
 					20+ yıllık profesyonel yazılım geliştirme kariyerimde .NET, Python, yapay zeka ve veri bilimi
-					alanlarında çalıştım. Yazılımın yanı sıra sosyoloji eğitimi aldım — bu da insanı ve toplumu
-					anlamaya dair kişisel merakımın bir yansıması.
+					alanlarında çalıştım.
 				</p>
 				<p>
-					Bu blogda yazılımdan girişimciliğe, veri biliminden hayat derslerine kadar birçok
-					konuda düşüncelerimi paylaşıyorum.
+					Bu sitede yapay zeka ve yazılım ile alakalı paylaşımlarda bulunuyor, okuduğum kitaplar hakkında
+					yorumlarımı yazıyor ve manevi konularda okuduğum şeyleri paylaşıyorum.
 				</p>
 				<p>
 					<strong>İnanıyorum ki en iyi algoritmalar, hayatın kendisinde gizli.</strong>
 				</p>
 			</section>
 
-			<section class="recent-posts">
-				<h2>Son Yazılar</h2>
-				<ul class="post-list">
-					{posts.map((post) => (
-						<li>
-							<a href={`/blog/${post.id}/`}>
-								<div class="post-title">{post.data.title}</div>
-								<div class="post-date">
-									<FormattedDate date={post.data.pubDate} />
-								</div>
-								{post.data.description && (
-									<p class="post-description">{post.data.description}</p>
-								)}
-							</a>
-						</li>
+			<section class="categories-section">
+				<h2>Kategoriler</h2>
+				<div class="categories-grid">
+					{categories.map((cat) => (
+						<a href={cat.href} class="category-card">
+							<div class="cat-icon" style={`background: ${cat.color}15;`}>
+								{cat.icon}
+							</div>
+							<div class="cat-info">
+								<h3 style={`color: ${cat.color};`}>{cat.name}</h3>
+								<p>{cat.desc}</p>
+							</div>
+						</a>
 					))}
-				</ul>
-				<a href="/blog" class="all-posts-link">Tüm yazılar →</a>
+				</div>
 			</section>
+
+			{allPosts.length > 0 && (
+				<section class="recent-posts">
+					<h2>Son Yazılar</h2>
+					<ul class="post-list">
+						{allPosts.map((post) => (
+							<li>
+								<a href={post._href}>
+									<div class="post-title">{post.data.title}</div>
+									<div class="post-meta">
+										<div class="post-date">
+											<FormattedDate date={post.data.pubDate} />
+										</div>
+										<span class="post-category-badge" style={`background: ${
+											post._category === 'manevi' ? '#1a5c2e' :
+											post._category === 'yapay-zeka' ? '#6366f1' :
+											post._category === 'yazilim' ? '#0891b2' : '#b45309'
+										};`}>
+											{post._categoryLabel}
+										</span>
+									</div>
+									{post.data.description && (
+										<p class="post-description">{post.data.description}</p>
+									)}
+								</a>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
 		</main>
 		<Footer />
 	</body>
