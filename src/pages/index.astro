@@ -175,40 +175,18 @@ const categories = [
 		<Header />
 		<main>
 			<section class="hero-section">
-				<h1>Merhaba, ben Selman 👋</h1>
+				<h4>Merhaba, ben Selman</h4>
 				<p>
-					20+ yıllık profesyonel yazılım geliştirme kariyerimde .NET, Python, yapay zeka ve veri bilimi
-					alanlarında çalıştım.
+					İlgi alanlarımla alakalı paylaşmaya değer bulduğum içerikleri burada paylaşıyorum.
 				</p>
 				<p>
-					Bu sitede yapay zeka ve yazılım ile alakalı paylaşımlarda bulunuyor, okuduğum kitaplar hakkında
-					yorumlarımı yazıyor ve manevi konularda okuduğum şeyleri paylaşıyorum.
+					<strong>İnanıyorum ki bilgi paylaştıkça çoğalır.</strong>
 				</p>
-				<p>
-					<strong>İnanıyorum ki en iyi algoritmalar, hayatın kendisinde gizli.</strong>
-				</p>
-			</section>
-
-			<section class="categories-section">
-				<h2>Kategoriler</h2>
-				<div class="categories-grid">
-					{categories.map((cat) => (
-						<a href={cat.href} class="category-card">
-							<div class="cat-icon" style={`background: ${cat.color}15;`}>
-								{cat.icon}
-							</div>
-							<div class="cat-info">
-								<h3 style={`color: ${cat.color};`}>{cat.name}</h3>
-								<p>{cat.desc}</p>
-							</div>
-						</a>
-					))}
-				</div>
 			</section>
 
 			{allPosts.length > 0 && (
 				<section class="recent-posts">
-					<h2>Son Yazılar</h2>
+					<h4>Son Yazılar</h4>
 					<ul class="post-list">
 						{allPosts.map((post) => (
 							<li>
