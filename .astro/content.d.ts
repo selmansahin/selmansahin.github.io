@@ -139,6 +139,14 @@ declare module 'astro:content' {
   rendered?: RenderedContent;
   filePath?: string;
 }>;
+"manevi": Record<string, {
+  id: string;
+  body?: string;
+  collection: "manevi";
+  data: InferEntrySchema<"manevi">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
 
 	};
 

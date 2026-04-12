@@ -1,0 +1,189 @@
+---
+import { Image } from 'astro:assets';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+
+export async function getStaticPaths() {
+	const posts = (await getCollection('manevi')).filter(
+		(post) => post.data.category === 'allahin-isimleri'
+	);
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<'manevi'>;
+
+const post = Astro.props;
+const { Content } = await render(post);
+const { title, description, pubDate, updatedDate, heroImage } = post.data;
+---
+
+<!doctype html>
+<html lang="tr">
+	<head>
+		<BaseHead title={`${title} | Allah'ımızın İsimleri | Manevi`} description={description} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			.breadcrumb {
+				max-width: 780px;
+				margin: 0 auto 1em;
+				padding: 0 1em;
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+			}
+			.breadcrumb a {
+				color: #1a5c2e;
+				text-decoration: none;
+			}
+			.breadcrumb a:hover {
+				text-decoration: underline;
+			}
+			.breadcrumb .sep {
+				margin: 0 0.4em;
+				color: #c8a95e;
+			}
+			.hero-image {
+				width: 100%;
+				max-width: 780px;
+				margin: 0 auto 2em;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 16px;
+				box-shadow: 0 4px 24px rgba(200, 169, 94, 0.25);
+				border: 2px solid #e8d9a8;
+			}
+			.prose {
+				width: 780px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.title-section {
+				text-align: center;
+				margin-bottom: 2em;
+				padding: 2em 1em;
+				background: linear-gradient(135deg, #fefcf4, #fff9e6);
+				border: 1px solid #e8d9a8;
+				border-radius: 16px;
+			}
+			.title-section .ornament {
+				font-size: 1.4em;
+				color: #c8a95e;
+				margin-bottom: 0.5em;
+			}
+			.title-section h1 {
+				margin: 0 0 0.3em 0;
+				font-size: 2.4em;
+				background: linear-gradient(135deg, #1a5c2e, #2d8a4e);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+			.title-section .subtitle {
+				color: rgb(var(--gray));
+				font-size: 1em;
+				margin: 0 0 0.8em 0;
+			}
+			.date {
+				color: rgb(var(--gray));
+				font-size: 0.85em;
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+			/* Content styling for manevi posts */
+			.prose :global(h2) {
+				color: #1a5c2e;
+				font-size: 1.8em;
+				margin-top: 1.5em;
+				padding-bottom: 0.3em;
+				border-bottom: 2px solid #e8d9a8;
+			}
+			.prose :global(blockquote) {
+				border-left: 4px solid #c8a95e;
+				background: linear-gradient(135deg, #fefcf4, #fff9e6);
+				padding: 1.2em 1.5em;
+				margin: 1.5em 0;
+				border-radius: 0 12px 12px 0;
+				font-size: 1.05em;
+			}
+			.prose :global(blockquote strong) {
+				color: #1a5c2e;
+				font-size: 1.15em;
+			}
+			.prose :global(hr) {
+				border: none;
+				height: 2px;
+				background: linear-gradient(90deg, transparent, #c8a95e, transparent);
+				margin: 2em 0;
+			}
+			.prose :global(p) {
+				line-height: 1.9;
+				margin-bottom: 1.2em;
+			}
+			@media (max-width: 720px) {
+				.title-section h1 {
+					font-size: 1.8em;
+				}
+				.title-section {
+					padding: 1.5em 1em;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="prose">
+					<div class="breadcrumb">
+						<a href="/">Ana Sayfa</a>
+						<span class="sep">›</span>
+						<a href="/manevi">Manevi</a>
+						<span class="sep">›</span>
+						<a href="/manevi/allahin-isimleri">Allah'ımızın İsimleri</a>
+						<span class="sep">›</span>
+						{title}
+					</div>
+
+					<div class="title-section">
+						<div class="ornament">﷽</div>
+						<h1>{title}</h1>
+						<p class="subtitle">{description}</p>
+						<div class="date">
+							<FormattedDate date={pubDate} />
+							{
+								updatedDate && (
+									<div class="last-updated-on">
+										Son güncelleme: <FormattedDate date={updatedDate} />
+									</div>
+								)
+							}
+						</div>
+					</div>
+
+					{heroImage && (
+						<div class="hero-image">
+							<Image width={780} height={400} src={heroImage} alt={title} />
+						</div>
+					)}
+
+					<Content />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -17,4 +17,17 @@ const blog = defineCollection({
 		}),
 });
 
-export const collections = { blog };
+const manevi = defineCollection({
+	loader: glob({ base: './src/content/manevi', pattern: '**/*.{md,mdx}' }),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			category: z.string(),
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: z.optional(image()),
+		}),
+});
+
+export const collections = { blog, manevi };

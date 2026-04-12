@@ -1,0 +1,196 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const posts = await getCollection('manevi');
+
+// Group posts by category
+const categories: Record<string, { title: string; slug: string; posts: typeof posts }> = {};
+
+const categoryNames: Record<string, string> = {
+	'allahin-isimleri': "Allah'ımızın İsimleri",
+};
+
+posts.forEach((post) => {
+	const cat = post.data.category;
+	if (!categories[cat]) {
+		categories[cat] = {
+			title: categoryNames[cat] || cat,
+			slug: cat,
+			posts: [],
+		};
+	}
+	categories[cat].posts.push(post);
+});
+---
+
+<!doctype html>
+<html lang="tr">
+	<head>
+		<BaseHead title={`Manevi | ${SITE_TITLE}`} description="Manevi konular, dualar ve Allah'ın güzel isimleri" />
+		<style>
+			main {
+				width: 960px;
+			}
+			.page-header {
+				text-align: center;
+				margin-bottom: 3em;
+				padding: 2.5em 0 1.5em;
+			}
+			.page-header h1 {
+				font-size: 2.8em;
+				background: linear-gradient(135deg, #1a5c2e, #2d8a4e, #1a5c2e);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				margin-bottom: 0.3em;
+			}
+			.page-header p {
+				color: rgb(var(--gray));
+				font-size: 1.1em;
+				max-width: 500px;
+				margin: 0 auto;
+			}
+			.page-header .ornament {
+				font-size: 1.6em;
+				color: #c8a95e;
+				margin-bottom: 0.5em;
+			}
+			.category-card {
+				background: linear-gradient(135deg, #fefcf4, #fff9e6);
+				border: 1px solid #e8d9a8;
+				border-radius: 16px;
+				padding: 2em 2.5em;
+				margin-bottom: 2em;
+				box-shadow: 0 4px 20px rgba(200, 169, 94, 0.12);
+				transition: transform 0.3s ease, box-shadow 0.3s ease;
+			}
+			.category-card:hover {
+				transform: translateY(-3px);
+				box-shadow: 0 8px 32px rgba(200, 169, 94, 0.2);
+			}
+			.category-card h2 {
+				font-size: 1.8em;
+				color: #1a5c2e;
+				margin-bottom: 0.3em;
+				display: flex;
+				align-items: center;
+				gap: 0.4em;
+			}
+			.category-card h2 .icon {
+				font-size: 0.8em;
+			}
+			.category-card .category-desc {
+				color: rgb(var(--gray));
+				margin-bottom: 1.5em;
+				font-size: 0.95em;
+			}
+			.post-list {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.post-list li {
+				padding: 1em 1.2em;
+				border-radius: 10px;
+				margin-bottom: 0.6em;
+				background: rgba(255, 255, 255, 0.7);
+				border: 1px solid rgba(232, 217, 168, 0.5);
+				transition: all 0.25s ease;
+			}
+			.post-list li:hover {
+				background: rgba(255, 255, 255, 0.95);
+				border-color: #c8a95e;
+				box-shadow: 0 2px 12px rgba(200, 169, 94, 0.15);
+			}
+			.post-list a {
+				text-decoration: none;
+				color: inherit;
+				display: flex;
+				align-items: center;
+				gap: 1em;
+			}
+			.post-list .post-icon {
+				font-size: 1.4em;
+				width: 48px;
+				height: 48px;
+				background: linear-gradient(135deg, #1a5c2e, #2d8a4e);
+				border-radius: 12px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-shrink: 0;
+				color: #fff;
+			}
+			.post-list .post-info {
+				flex: 1;
+			}
+			.post-list .post-title {
+				font-size: 1.15em;
+				font-weight: 700;
+				color: rgb(var(--gray-dark));
+				margin: 0 0 0.15em 0;
+				transition: color 0.2s ease;
+			}
+			.post-list li:hover .post-title {
+				color: #1a5c2e;
+			}
+			.post-list .post-desc {
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+				margin: 0;
+			}
+			.post-list .arrow {
+				color: #c8a95e;
+				font-size: 1.2em;
+				transition: transform 0.2s ease;
+			}
+			.post-list li:hover .arrow {
+				transform: translateX(4px);
+			}
+			@media (max-width: 720px) {
+				.page-header h1 {
+					font-size: 2em;
+				}
+				.category-card {
+					padding: 1.5em;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="page-header">
+				<div class="ornament">☪︎</div>
+				<h1>Manevi</h1>
+				<p>Dualar, zikirler ve Allah'ın güzel isimleri hakkında manevi içerikler</p>
+			</section>
+
+			{Object.values(categories).map((cat) => (
+				<div class="category-card">
+					<h2><span class="icon">📿</span> {cat.title}</h2>
+					<p class="category-desc">Esma-ül Hüsna — Allah'ın güzel isimleri ve faziletleri</p>
+					<ul class="post-list">
+						{cat.posts.map((post) => (
+							<li>
+								<a href={`/manevi/allahin-isimleri/${post.id}/`}>
+									<div class="post-icon">✦</div>
+									<div class="post-info">
+										<div class="post-title">{post.data.title}</div>
+										<p class="post-desc">{post.data.description}</p>
+									</div>
+									<span class="arrow">→</span>
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			))}
+		</main>
+		<Footer />
+	</body>
+</html>

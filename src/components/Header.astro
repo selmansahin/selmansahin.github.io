@@ -9,6 +9,12 @@ import HeaderLink from './HeaderLink.astro';
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
+			<div class="dropdown">
+				<HeaderLink href="/manevi">Manevi ▾</HeaderLink>
+				<div class="dropdown-content">
+					<a href="/manevi/allahin-isimleri">📿 Allah'ımızın İsimleri</a>
+				</div>
+			</div>
 			<HeaderLink href="/about">About</HeaderLink>
 		</div>
 		<div class="social-links">
@@ -86,9 +92,48 @@ import HeaderLink from './HeaderLink.astro';
 	.social-links a {
 		display: flex;
 	}
+	.internal-links {
+		display: flex;
+		align-items: center;
+		gap: 0;
+	}
+	/* Dropdown styles */
+	.dropdown {
+		position: relative;
+	}
+	.dropdown-content {
+		display: none;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		background: white;
+		min-width: 220px;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+		border-radius: 10px;
+		border: 1px solid rgba(232, 217, 168, 0.5);
+		overflow: hidden;
+		z-index: 100;
+	}
+	.dropdown:hover .dropdown-content {
+		display: block;
+	}
+	.dropdown-content a {
+		display: block;
+		padding: 0.8em 1.2em;
+		color: rgb(var(--gray-dark));
+		text-decoration: none;
+		border-bottom: none;
+		font-size: 0.9em;
+		transition: all 0.2s ease;
+	}
+	.dropdown-content a:hover {
+		background: linear-gradient(135deg, #fefcf4, #fff9e6);
+		color: #1a5c2e;
+	}
 	@media (max-width: 720px) {
 		.social-links {
 			display: none;
 		}
 	}
 </style>
+
