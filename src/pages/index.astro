@@ -11,7 +11,7 @@ const maneviPosts = (await getCollection('manevi')).map((p) => ({
 	...p,
 	_category: 'manevi',
 	_categoryLabel: 'Manevi',
-	_href: `/manevi/allahin-isimleri/${p.id}/`,
+	_href: `/manevi/${p.data.category}/${p.id}/`,
 }));
 
 const yapayZekaPosts = (await getCollection('yapay-zeka')).map((p) => ({

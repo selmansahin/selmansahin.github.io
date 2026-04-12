@@ -3,7 +3,6 @@ title: 'Hafızayı Kuvvetlendiren Dua'
 description: 'Süleyman Hilmi Tunahan (k.s.) Hazretlerinin unutkanlık ve hafıza için tavsiye ettiği seher vakti duası'
 category: 'dualar'
 pubDate: 2026-04-12
-heroImage: '../../assets/manevi/dualar/hafiza-duasi.jpg'
 ---
 
 ## Hazret Süleyman Hilmi Tunahan (k.s.)'dan Unutkanlık İçin Dua Tavsiyesi
