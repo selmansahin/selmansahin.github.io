@@ -1,5 +1,7 @@
 
 import __ASTRO_IMAGE_IMPORT_ZVEwFj from "../../assets/blog-placeholder-2.jpg?astroContentImageFlag=&importer=src%2Fcontent%2Fyapay-zeka%2Fyapay-zeka-ve-insan.md";
+import __ASTRO_IMAGE_IMPORT_1crzB5 from "../../assets/kitaplar/hizli-yavas-dusunme-tablo1.png?astroContentImageFlag=&importer=src%2Fcontent%2Fkitaplar%2Fhizli-ve-yavas-dusunme.md";
+import __ASTRO_IMAGE_IMPORT_dqxlu from "../../assets/kitaplar/hizli-yavas-dusunme-tablo2.webp?astroContentImageFlag=&importer=src%2Fcontent%2Fkitaplar%2Fhizli-ve-yavas-dusunme.md";
 import __ASTRO_IMAGE_IMPORT_Z1Rs6rH from "../../assets/manevi/vehhab-ismi.jpg?astroContentImageFlag=&importer=src%2Fcontent%2Fmanevi%2Fvehhab.md";
-export default new Map([["../../assets/blog-placeholder-2.jpg?astroContentImageFlag=&importer=src%2Fcontent%2Fyapay-zeka%2Fyapay-zeka-ve-insan.md", __ASTRO_IMAGE_IMPORT_ZVEwFj], ["../../assets/manevi/vehhab-ismi.jpg?astroContentImageFlag=&importer=src%2Fcontent%2Fmanevi%2Fvehhab.md", __ASTRO_IMAGE_IMPORT_Z1Rs6rH]]);
+export default new Map([["../../assets/blog-placeholder-2.jpg?astroContentImageFlag=&importer=src%2Fcontent%2Fyapay-zeka%2Fyapay-zeka-ve-insan.md", __ASTRO_IMAGE_IMPORT_ZVEwFj], ["../../assets/kitaplar/hizli-yavas-dusunme-tablo1.png?astroContentImageFlag=&importer=src%2Fcontent%2Fkitaplar%2Fhizli-ve-yavas-dusunme.md", __ASTRO_IMAGE_IMPORT_1crzB5], ["../../assets/kitaplar/hizli-yavas-dusunme-tablo2.webp?astroContentImageFlag=&importer=src%2Fcontent%2Fkitaplar%2Fhizli-ve-yavas-dusunme.md", __ASTRO_IMAGE_IMPORT_dqxlu], ["../../assets/manevi/vehhab-ismi.jpg?astroContentImageFlag=&importer=src%2Fcontent%2Fmanevi%2Fvehhab.md", __ASTRO_IMAGE_IMPORT_Z1Rs6rH]]);
 		
