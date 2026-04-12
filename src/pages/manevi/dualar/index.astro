@@ -1,0 +1,170 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_TITLE } from '../../../consts';
+
+const posts = (await getCollection('manevi'))
+	.filter((post) => post.data.category === 'dualar')
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<!doctype html>
+<html lang="tr">
+	<head>
+		<BaseHead title={`Dualar | Manevi | ${SITE_TITLE}`} description="Dualar, zikirler ve manevi tavsiyeler" />
+		<style>
+			main {
+				width: 960px;
+			}
+			.page-header {
+				text-align: center;
+				margin-bottom: 3em;
+				padding: 2.5em 0 1.5em;
+			}
+			.breadcrumb {
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+				margin-bottom: 1.5em;
+			}
+			.breadcrumb a {
+				color: #1a5c2e;
+				text-decoration: none;
+			}
+			.breadcrumb a:hover {
+				text-decoration: underline;
+			}
+			.breadcrumb .sep {
+				margin: 0 0.4em;
+				color: #c8a95e;
+			}
+			.page-header h1 {
+				font-size: 2.4em;
+				background: linear-gradient(135deg, #1a5c2e, #2d8a4e, #1a5c2e);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				margin-bottom: 0.3em;
+			}
+			.page-header .ornament {
+				font-size: 1.6em;
+				color: #c8a95e;
+				margin-bottom: 0.5em;
+			}
+			.page-header p {
+				color: rgb(var(--gray));
+				font-size: 1em;
+				max-width: 550px;
+				margin: 0 auto;
+			}
+			.names-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.2em;
+			}
+			.name-card {
+				background: linear-gradient(135deg, #fefcf4, #fff9e6);
+				border: 1px solid #e8d9a8;
+				border-radius: 14px;
+				padding: 1.8em;
+				text-decoration: none;
+				color: inherit;
+				transition: all 0.3s ease;
+				display: block;
+				position: relative;
+				overflow: hidden;
+			}
+			.name-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4px;
+				background: linear-gradient(90deg, #c8a95e, #1a5c2e, #c8a95e);
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			}
+			.name-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 8px 32px rgba(200, 169, 94, 0.2);
+				border-color: #c8a95e;
+			}
+			.name-card:hover::before {
+				opacity: 1;
+			}
+			.name-card .name-icon {
+				font-size: 2em;
+				margin-bottom: 0.4em;
+			}
+			.name-card h3 {
+				font-size: 1.3em;
+				color: #1a5c2e;
+				margin-bottom: 0.3em;
+			}
+			.name-card p {
+				font-size: 0.88em;
+				color: rgb(var(--gray));
+				margin: 0;
+				line-height: 1.5;
+			}
+			.name-card .date {
+				font-size: 0.78em;
+				color: rgb(var(--gray));
+				margin-top: 0.8em;
+			}
+			.empty-state {
+				text-align: center;
+				padding: 3em;
+				color: rgb(var(--gray));
+			}
+			@media (max-width: 720px) {
+				.names-grid {
+					grid-template-columns: 1fr;
+				}
+				.page-header h1 {
+					font-size: 1.8em;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="page-header">
+				<div class="breadcrumb">
+					<a href="/">Ana Sayfa</a>
+					<span class="sep">›</span>
+					<a href="/manevi">Manevi</a>
+					<span class="sep">›</span>
+					Dualar
+				</div>
+				<div class="ornament">🤲</div>
+				<h1>Dualar</h1>
+				<p>Dua ve zikirler — manevi hayatımızı güçlendiren tavsiyeler</p>
+			</section>
+
+			{posts.length > 0 ? (
+				<div class="names-grid">
+					{posts.map((post) => (
+						<a href={`/manevi/dualar/${post.id}/`} class="name-card">
+							<div class="name-icon">🤲</div>
+							<h3>{post.data.title}</h3>
+							<p>{post.data.description}</p>
+							<div class="date">
+								<FormattedDate date={post.data.pubDate} />
+							</div>
+						</a>
+					))}
+				</div>
+			) : (
+				<div class="empty-state">
+					<p>Henüz bu kategoride içerik bulunmuyor.</p>
+				</div>
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>

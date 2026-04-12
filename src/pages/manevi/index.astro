@@ -10,15 +10,27 @@ const posts = await getCollection('manevi');
 // Group posts by category
 const categories: Record<string, { title: string; slug: string; posts: typeof posts }> = {};
 
-const categoryNames: Record<string, string> = {
-	'allahin-isimleri': "Allah'ımızın İsimleri",
+const categoryConfig: Record<string, { title: string; icon: string; desc: string; postIcon: string }> = {
+	'allahin-isimleri': {
+		title: "Allah'ımızın İsimleri",
+		icon: '📿',
+		desc: "Esma-ül Hüsna — Allah'ın güzel isimleri ve faziletleri",
+		postIcon: '✦',
+	},
+	'dualar': {
+		title: 'Dualar',
+		icon: '🤲',
+		desc: 'Dua ve zikirler — manevi hayatımızı güçlendiren tavsiyeler',
+		postIcon: '🤲',
+	},
 };
 
 posts.forEach((post) => {
 	const cat = post.data.category;
+	const config = categoryConfig[cat] || { title: cat, icon: '📖', desc: '', postIcon: '📖' };
 	if (!categories[cat]) {
 		categories[cat] = {
-			title: categoryNames[cat] || cat,
+			title: config.title,
 			slug: cat,
 			posts: [],
 		};
@@ -170,15 +182,17 @@ posts.forEach((post) => {
 				<p>Dualar, zikirler ve Allah'ın güzel isimleri hakkında manevi içerikler</p>
 			</section>
 
-			{Object.values(categories).map((cat) => (
+			{Object.values(categories).map((cat) => {
+				const config = categoryConfig[cat.slug] || { icon: '📖', desc: '', postIcon: '📖' };
+				return (
 				<div class="category-card">
-					<h2><span class="icon">📿</span> {cat.title}</h2>
-					<p class="category-desc">Esma-ül Hüsna — Allah'ın güzel isimleri ve faziletleri</p>
+					<h2><span class="icon">{config.icon}</span> {cat.title}</h2>
+					<p class="category-desc">{config.desc}</p>
 					<ul class="post-list">
 						{cat.posts.map((post) => (
 							<li>
-								<a href={`/manevi/allahin-isimleri/${post.id}/`}>
-									<div class="post-icon">✦</div>
+								<a href={`/manevi/${cat.slug}/${post.id}/`}>
+									<div class="post-icon">{config.postIcon}</div>
 									<div class="post-info">
 										<div class="post-title">{post.data.title}</div>
 										<p class="post-desc">{post.data.description}</p>
@@ -189,7 +203,7 @@ posts.forEach((post) => {
 						))}
 					</ul>
 				</div>
-			))}
+			)})}
 		</main>
 		<Footer />
 	</body>
