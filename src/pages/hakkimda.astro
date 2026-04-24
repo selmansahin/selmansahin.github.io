@@ -1,50 +1,199 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout
-	title="Hakkımda"
-	description="Selman Şahin — Yazılımcı, Blog Yazarı"
-	pubDate={new Date('2025-01-01')}
-	heroImage={AboutHeroImage}
->
+<!doctype html>
+<html lang="tr">
+	<head>
+		<BaseHead title="Hakkımda — Selman Şahin" description="Selman Şahin hakkında — yazılım, sosyoloji, maneviyat." />
+		<style is:global>
+			.about {
+				max-width: 620px;
+				margin: 0 auto;
+				padding: 3em 1em 4em;
+			}
 
-	<p>
-		20+ yıllık profesyonel yazılım geliştirme kariyerimde .NET, Python, yapay zeka ve veri bilimi
-		alanlarında çalıştım. Yazılım eğitimimin yanı sıra sosyoloji de okudum — bu, insanı ve toplumu
-		anlamaya dair kişisel bir merakın yansıması. İki farklı alan, iki farklı bakış açısı.
-	</p>
+			.about h1 {
+				font-size: 1.75rem;
+				font-weight: 700;
+				margin-bottom: 0.25em;
+				color: rgb(var(--black));
+			}
 
-	<h2>Bu Siteyi Neden Açtım?</h2>
-	<p>
-		Bu siteyi yapay zeka ve yazılım ile alakalı bazı paylaşımlarda bulunmak, okuduğum kitaplar
-		hakkında yorumlarımı yazmak ve manevi konularda okuduğum şeyleri paylaşmak için açtım.
-	</p>
-	<p>
-		Dört ana kategoride içerik üretiyorum:
-	</p>
-	<ul>
-		<li><strong>Manevi:</strong> Allah'ın güzel isimleri, dualar ve manevi konular</li>
-		<li><strong>Yapay Zeka:</strong> Yapay zeka dünyasından paylaşımlar ve düşünceler</li>
-		<li><strong>Yazılım:</strong> Yazılım geliştirme deneyimlerim ve teknik yazılar</li>
-		<li><strong>Kitaplar:</strong> Okuduğum kitaplar hakkında yorumlarım</li>
-	</ul>
+			.about .subtitle {
+				font-size: 0.9rem;
+				color: rgb(var(--gray));
+				margin-bottom: 2.5em;
+			}
 
-	<h2>Uzmanlık Alanlarım</h2>
-	<ul>
-		<li>.NET Ekosistemi</li>
-		<li>Python & Veri Bilimi</li>
-		<li>Yapay Zeka / Makine Öğrenmesi</li>
-		<li>Yazılım Mimarisi</li>
-	</ul>
+			.about section {
+				margin-bottom: 2.5em;
+			}
 
-	<h2>İletişim</h2>
-	<p>Benimle sosyal medya üzerinden iletişime geçebilirsiniz:</p>
-	<ul>
-		<li>GitHub: <a href="https://github.com/selmansahin" target="_blank">github.com/selmansahin</a></li>
-		<li>LinkedIn: <a href="https://www.linkedin.com/in/selmansahin/" target="_blank">linkedin.com/in/selmansahin</a></li>
-		<li>Twitter/X: <a href="https://x.com/kalbeyn" target="_blank">x.com/kalbeyn</a></li>
-		<li>Medium: <a href="https://medium.com/@selmansahin" target="_blank">medium.com/@selmansahin</a></li>
-	</ul>
-</Layout>
+			.about section h2 {
+				font-size: 0.7rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				color: rgb(var(--gray));
+				margin-bottom: 0.75em;
+			}
+
+			.about section p {
+				font-size: 0.95rem;
+				line-height: 1.75;
+				color: rgb(var(--gray-dark));
+				margin-bottom: 0.75em;
+			}
+
+			.about section p:last-child {
+				margin-bottom: 0;
+			}
+
+			.tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5em;
+			}
+
+			.tag {
+				font-size: 0.8rem;
+				padding: 0.3em 0.75em;
+				border: 1px solid rgb(var(--gray-light));
+				border-radius: 20px;
+				color: rgb(var(--gray-dark));
+				background: white;
+			}
+
+			.social-list {
+				display: flex;
+				flex-direction: column;
+				gap: 0.5em;
+			}
+
+			.social-list a {
+				font-size: 0.9rem;
+				color: var(--accent);
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				gap: 0.5em;
+			}
+
+			.social-list a:hover {
+				color: var(--accent-dark);
+				text-decoration: underline;
+			}
+
+			.social-list .label {
+				font-size: 0.75rem;
+				color: rgb(var(--gray));
+				min-width: 70px;
+			}
+
+			.divider {
+				border: none;
+				border-top: 1px solid rgb(var(--gray-light));
+				margin: 0 0 2.5em;
+			}
+
+			@media (max-width: 720px) {
+				.about {
+					padding: 2em 1em 3em;
+				}
+			}
+
+			.footnote {
+				margin-top: 3em;
+				padding-top: 1em;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+
+			.footnote p {
+				font-size: 0.78rem;
+				color: rgb(var(--gray));
+				margin: 0;
+				line-height: 1.6;
+			}
+
+			sup {
+				font-size: 0.65em;
+				vertical-align: super;
+				line-height: 0;
+				color: rgb(var(--gray));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div class="about">
+				<h1>Selman Şahin</h1>
+				<p class="subtitle">Yazılım Geliştirici · İstanbul</p>
+				<hr class="divider" />
+
+				<section>
+					<h2>Hakkında</h2>
+					<p>
+						20+ yıllık yazılım geliştirme kariyerimde .NET, Python, yapay zeka ve veri bilimi
+						alanlarında çalıştım. Yapay zeka fırtınasının ortasında yönümüzü bulmaya çalışıyoruz;
+						bu süreci de yakından takip ediyorum.
+					</p>
+					<p>
+						Yaratılanı severim, Yaradan'dan ötürü. İnsana ve insana dair şeylere duyduğum
+						meraktan sosyoloji eğitimi de aldım. Bu yönde okumalar yapmaya devam ediyorum.
+					</p>
+				</section>
+
+				<section>
+					<h2>Bu Siteyi Neden Açtım?</h2>
+					<p>
+						"El ilmu saydun zabtuhu kaydun"<sup>*</sup> sözünden ilhamla, edindiğim bilgi ve tecrübelerden
+
+						paylaşmaya değer bulduklarımı kayıt altına almak için burası var.
+					</p>
+				</section>
+
+				<section>
+					<h2>İlgi Alanları</h2>
+					<div class="tags">
+						<span class="tag">Maneviyat & Tasavvuf</span>
+						<span class="tag">Yazılım Geliştirme</span>
+						<span class="tag">Yapay Zeka</span>
+						<span class="tag">Veri Bilimi</span>
+						<span class="tag">Sosyoloji</span>
+					</div>
+				</section>
+
+				<section>
+					<h2>İletişim</h2>
+					<div class="social-list">
+						<a href="https://github.com/selmansahin" target="_blank" rel="noopener">
+							<span class="label">GitHub</span>
+							github.com/selmansahin
+						</a>
+						<a href="https://www.linkedin.com/in/selmansahin/" target="_blank" rel="noopener">
+							<span class="label">LinkedIn</span>
+							linkedin.com/in/selmansahin
+						</a>
+						<a href="https://x.com/kalbeyn" target="_blank" rel="noopener">
+							<span class="label">Twitter/X</span>
+							x.com/kalbeyn
+						</a>
+						<a href="https://medium.com/@selmansahin" target="_blank" rel="noopener">
+							<span class="label">Medium</span>
+							medium.com/@selmansahin
+						</a>
+					</div>
+					</section>
+
+				<footer class="footnote">
+					<p><sup>*</sup> İlim bir kuştur, ancak yazarak zabtedilir.</p>
+				</footer>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
