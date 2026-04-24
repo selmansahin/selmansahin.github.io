@@ -18,6 +18,7 @@ const manevi = defineCollection({
 			title: z.string(),
 			description: z.string(),
 			category: z.string(),
+			sira: z.number().optional(),
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: z.optional(image()),

@@ -2,6 +2,7 @@
 title: "A'lâ Sûresi Tefsiri"
 description: "Elmalılı Hamdi Yazır'ın Hak Dini Kur'an Dili eserinden 87. sûre olan A'lâ Sûresi'nin tefsiri"
 category: 'tefsir'
+sira: 87
 pubDate: 2026-04-24
 ---
 
