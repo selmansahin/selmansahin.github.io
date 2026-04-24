@@ -1,0 +1,170 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_TITLE } from '../../../consts';
+
+const posts = (await getCollection('manevi'))
+	.filter((post) => post.data.category === 'tefsir')
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<!doctype html>
+<html lang="tr">
+	<head>
+		<BaseHead title={`Tefsir | Manevi | ${SITE_TITLE}`} description="Kur'an-ı Kerim surelerinin tefsirleri" />
+		<style>
+			main {
+				width: 960px;
+			}
+			.page-header {
+				text-align: center;
+				margin-bottom: 3em;
+				padding: 2.5em 0 1.5em;
+			}
+			.breadcrumb {
+				font-size: 0.85em;
+				color: rgb(var(--gray));
+				margin-bottom: 1.5em;
+			}
+			.breadcrumb a {
+				color: #1a5c2e;
+				text-decoration: none;
+			}
+			.breadcrumb a:hover {
+				text-decoration: underline;
+			}
+			.breadcrumb .sep {
+				margin: 0 0.4em;
+				color: #c8a95e;
+			}
+			.page-header h1 {
+				font-size: 2.4em;
+				background: linear-gradient(135deg, #1a5c2e, #2d8a4e, #1a5c2e);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+				margin-bottom: 0.3em;
+			}
+			.page-header .ornament {
+				font-size: 1.6em;
+				color: #c8a95e;
+				margin-bottom: 0.5em;
+			}
+			.page-header p {
+				color: rgb(var(--gray));
+				font-size: 1em;
+				max-width: 550px;
+				margin: 0 auto;
+			}
+			.post-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.2em;
+			}
+			.post-card {
+				background: linear-gradient(135deg, #fefcf4, #fff9e6);
+				border: 1px solid #e8d9a8;
+				border-radius: 14px;
+				padding: 1.8em;
+				text-decoration: none;
+				color: inherit;
+				transition: all 0.3s ease;
+				display: block;
+				position: relative;
+				overflow: hidden;
+			}
+			.post-card::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 4px;
+				background: linear-gradient(90deg, #c8a95e, #1a5c2e, #c8a95e);
+				opacity: 0;
+				transition: opacity 0.3s ease;
+			}
+			.post-card:hover {
+				transform: translateY(-4px);
+				box-shadow: 0 8px 32px rgba(200, 169, 94, 0.2);
+				border-color: #c8a95e;
+			}
+			.post-card:hover::before {
+				opacity: 1;
+			}
+			.post-card .card-icon {
+				font-size: 2em;
+				margin-bottom: 0.4em;
+			}
+			.post-card h3 {
+				font-size: 1.15em;
+				color: #1a5c2e;
+				margin-bottom: 0.3em;
+			}
+			.post-card p {
+				font-size: 0.88em;
+				color: rgb(var(--gray));
+				margin: 0;
+				line-height: 1.5;
+			}
+			.post-card .date {
+				font-size: 0.78em;
+				color: rgb(var(--gray));
+				margin-top: 0.8em;
+			}
+			.empty-state {
+				text-align: center;
+				padding: 3em;
+				color: rgb(var(--gray));
+			}
+			@media (max-width: 720px) {
+				.post-grid {
+					grid-template-columns: 1fr;
+				}
+				.page-header h1 {
+					font-size: 1.8em;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="page-header">
+				<div class="breadcrumb">
+					<a href="/">Ana Sayfa</a>
+					<span class="sep">›</span>
+					<a href="/manevi">Manevi</a>
+					<span class="sep">›</span>
+					Tefsir
+				</div>
+				<div class="ornament">📖</div>
+				<h1>Tefsir</h1>
+				<p>Kur'an-ı Kerim surelerinin tefsirleri ve açıklamaları</p>
+			</section>
+
+			{posts.length > 0 ? (
+				<div class="post-grid">
+					{posts.map((post) => (
+						<a href={`/manevi/tefsir/${post.id}/`} class="post-card">
+							<div class="card-icon">📜</div>
+							<h3>{post.data.title}</h3>
+							<p>{post.data.description}</p>
+							<div class="date">
+								<FormattedDate date={post.data.pubDate} />
+							</div>
+						</a>
+					))}
+				</div>
+			) : (
+				<div class="empty-state">
+					<p>Henüz bu kategoride içerik bulunmuyor.</p>
+				</div>
+			)}
+		</main>
+		<Footer />
+	</body>
+</html>
