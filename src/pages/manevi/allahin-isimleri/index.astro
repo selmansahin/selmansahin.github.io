@@ -143,7 +143,7 @@ const posts = (await getCollection('manevi'))
 
 			<div class="names-grid">
 				{posts.map((post) => (
-					<a href={`/manevi/allahin-isimleri/${post.id}/`} class="name-card">
+					<a href={`/manevi/allahin-isimleri/${post.id.replace(/^allahin-isimleri\//, '')}/`} class="name-card">
 						<div class="name-icon">✦</div>
 						<h3>{post.data.title}</h3>
 						<p>{post.data.description}</p>

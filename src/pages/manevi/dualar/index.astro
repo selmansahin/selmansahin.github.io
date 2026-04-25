@@ -149,7 +149,7 @@ const posts = (await getCollection('manevi'))
 			{posts.length > 0 ? (
 				<div class="names-grid">
 					{posts.map((post) => (
-						<a href={`/manevi/dualar/${post.id}/`} class="name-card">
+						<a href={`/manevi/dualar/${post.id.replace(/^dualar\//, '')}/`} class="name-card">
 							<div class="name-icon">🤲</div>
 							<h3>{post.data.title}</h3>
 							<p>{post.data.description}</p>

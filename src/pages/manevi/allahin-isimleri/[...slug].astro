@@ -11,7 +11,7 @@ export async function getStaticPaths() {
 		(post) => post.data.category === 'allahin-isimleri'
 	);
 	return posts.map((post) => ({
-		params: { slug: post.id },
+		params: { slug: post.id.replace(/^allahin-isimleri\//, '') },
 		props: post,
 	}));
 }

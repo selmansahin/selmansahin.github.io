@@ -6,7 +6,7 @@ export async function getStaticPaths() {
 	const posts = (await getCollection('manevi'))
 		.filter((post) => post.data.category === 'dualar');
 	return posts.map((post) => ({
-		params: { slug: post.id },
+		params: { slug: post.id.replace(/^dualar\//, '') },
 		props: post,
 	}));
 }
